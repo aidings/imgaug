@@ -1,4 +1,3 @@
-import torch
 from PIL import Image
 from imgaug.image import SmallestMaxSize
 from torchvision import transforms
@@ -25,7 +24,7 @@ class VaeTransform:
         return image
 
     @staticmethod 
-    def decode(latent: torch.Tensor):
+    def decode(latent):
         # latent: [N, C, H, W]
         image = (latent/2 + 0.5).clamp(0, 1)
         image = image.cpu().permute(0, 2, 3, 1).float().numpy()
