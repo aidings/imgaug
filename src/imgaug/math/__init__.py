@@ -1,3 +1,3 @@
-from .function import topk, softmax
+from .function import topk, softmax, _auto_size
 
-__all__ = ["topk", "softmax"]
+__all__ = ["topk", "softmax", "_auto_size"]

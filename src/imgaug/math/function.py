@@ -1,4 +1,13 @@
+import numbers
 import numpy as np
+
+def _auto_size(size):
+    if isinstance(size, numbers.Number):
+        return (int(size), int(size))
+    elif isinstance(size, (list, tuple)):
+        return size[:2]
+    else:
+        raise RuntimeError(f'Not Support this kind of input({size})')
 
 def softmax(input, axis=1):
     """softmax
