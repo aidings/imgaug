@@ -78,7 +78,7 @@ class Canny:
         return PIL.Image.fromarray(image) 
 
 
-def __round(number):
+def _round(number):
     """Unified rounding in all python versions."""
     if abs(round(number) - number) == 0.5:
         return int(2.0 * round(number / 2.0))
@@ -96,7 +96,7 @@ class LongestMaxSize:
         scale = self.max_size / float(max(width, height))
 
         if scale != 1.0:
-            nw, nh = [__round(dim * scale) for dim in (width, height)]
+            nw, nh = [_round(dim * scale) for dim in (width, height)]
             image = image.resize((nw, nh), resample=self.resample)
         
         return image
@@ -115,7 +115,7 @@ class SmallestMaxSize:
         scale = self.max_size / float(min(width, height))
 
         if scale != 1.0:
-            nw, nh = [__round(dim * scale) for dim in (width, height)]
+            nw, nh = [_round(dim * scale) for dim in (width, height)]
             image = image.resize((nw, nh), resample=self.resample)
         
         return image

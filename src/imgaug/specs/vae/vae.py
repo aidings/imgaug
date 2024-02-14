@@ -4,19 +4,23 @@ from torchvision import transforms
 
 
 class VaeTransform:
-    def __init__(self, size, random_crop=False, resample=None):
-        self.size = size
+    def __init__(self, size=None, random_crop=False, resample=None):
 
-        resize = SmallestMaxSize(size, resample=resample)
-        if not random_crop:
-            croper = transforms.CenterCrop(size=(size, size))
+        if size:
+            self.size = size
+
+            resize = SmallestMaxSize(size, resample=resample)
+            if not random_crop:
+                croper = transforms.CenterCrop(size=(size, size))
+            else:
+                croper = transforms.RandomCrop(size=(size, size))
+
+            self.__imprec = transforms.Compose([
+                resize, 
+                croper,
+                transforms.ToTensor()])
         else:
-            croper = transforms.RandomCrop(size=(size, size))
-
-        self.__imprec = transforms.Compose([
-            resize, 
-            croper,
-            transforms.ToTensor()])
+            self.__imprec = transforms.Compose([transforms.ToTensor()])
 
     def __call__(self, image: Image):
         image = self.__imprec(image)
